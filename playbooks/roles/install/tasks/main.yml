@@ -1,16 +1,30 @@
----
-- name: Install Software
-  win_chocolatey:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - firefox
-    - lightshot
-    - 7zip  
-    - zoom
-    - skype
-    
-- name: Touch a file (creates if not present, updates modification time if present)
+- name: Crear directorio Temp si no existe
   win_file:
-    path: C:\Temp\foo.conf
-    state: touch
+    path: C:\Temp
+    state: directory
+
+- name: Descargar AnyDesk
+  win_get_url:
+    url: "https://download.anydesk.com/AnyDesk.exe"
+    dest: C:\Temp\AnyDesk.exe
+
+- name: Descargar Ninite
+  win_get_url:
+    url: "https://ninite.com/chrome-vlc-winrar/ninite.exe"
+    dest: C:\Temp\ninite.exe
+
+- name: Copiar instalador de Office a la carpeta Temp
+  ansible.builtin.copy:
+    src: "/mnt/c/Users/SATMAURI/Documents/officeSkynet/{{ 'OfficeSetup64.exe' if ansible_architecture == 'x86_64' else 'OfficeSetup32.exe' }}"
+    dest: "C:\\Temp\\OfficeSetup.exe"
+
+- name: Instalar Office 365
+  win_command: "C:\\Temp\\OfficeSetup.exe /silent"
+  ignore_errors: true
+  register: office_install_result
+
+- name: Verificar si Office 365 se instaló correctamente
+  debug:
+    msg: "Office 365 se instaló correctamente"
+  when: office_install_result.rc == 0
+
