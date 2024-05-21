@@ -52,12 +52,12 @@ Agrega las pc a las que le vamos a instalar los programas al archivo llamado **h
 
 IMPORTANTE: SI LA CONTRASEÑA CONTIENE CARACTERES ESPECIALES ES NECESARIO ESCAPARLAS PARA QUE ACEPTE LA CONTRASEÑA:
 
-EJEMPLO: ansible_password: G\@l1Le0\#
+EJEMPLO: ansible_password: G\@t0Fe0\#
 
 ```
 
 [laptops]
-laptop_1                        ansible_host=192.168.30.14       ansible_user=skynet       ansible_password=sky4     ansible_connection=ssh  ansible_shell_type=powershell   ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+laptop_1                        ansible_host=192.168.30.14       ansible_user=skynet       ansible_password=4ntonio     ansible_connection=ssh  ansible_shell_type=powershell   ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 
 ```
 
